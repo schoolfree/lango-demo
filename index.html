@@ -217,9 +217,27 @@
       background: url('https://i.pinimg.com/736x/4a/01/90/4a0190274d2cc5ce8933037acf2f6ec3.jpg') center/cover no-repeat;
       display: flex;
       flex-direction: column;
+      z-index: 10;
+    }
+
+    .visual-novel-container.background-blurred::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 0;
+    }
+
+    .visual-novel-container > * {
+      position: relative;
       z-index: 1;
     }
-    
+
     .scene-header {
       background: rgba(0, 0, 0, 0.85);
       color: white;
@@ -304,7 +322,7 @@
       background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
     }
     
-    .character-david .character-avatar {
+    .character-alan .character-avatar {
       background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
     }
     
@@ -840,7 +858,7 @@
     .room-scene {
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('https://imgcdn.stablediffusionweb.com/2025/10/3/a4bfc20f-ef48-4ed3-b785-2e3826033f0b.jpg');
+      background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)), url('images/room-bg.jpg');
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -1286,7 +1304,7 @@
   <div id="login-screen" class="login-screen">
    <div class="login-container">
     <div class="login-header">
-     <h1 class="login-title">🐻 <span id="login-icon-1"></span> Lango <span id="login-icon-2"></span></h1>
+     <h1 class="login-title">🐻 <span id="login-icon-1"></span> LanGo <span id="login-icon-2"></span></h1>
      <p class="login-subtitle">The FUN Way to Learn!</p>
     </div>
     <div class="login-form">
@@ -1360,10 +1378,10 @@
        <p class="scene-subtitle" id="scene-subtitle">Learn greetings and introductions</p>
       </div>
       <div class="characters-area" id="characters-area">
-       <div class="character character-david speaking" id="character-david">
-        <div class="character-avatar" id="char-david-avatar"></div>
+       <div class="character character-alan speaking" id="character-alan">
+        <div class="character-avatar" id="char-alan-avatar"></div>
         <div class="character-name">
-         David (大衛)
+         Alan (艾倫)
         </div>
        </div>
        <div class="character character-phin" id="character-phin">
@@ -1375,17 +1393,17 @@
       </div>
       <div class="dialogue-box" id="dialogue-box">
        <div class="speaker-name" id="speaker-name">
-        David (大衛)
+        Alan (艾倫)
        </div>
        <div class="dialogue-text" id="dialogue-content">
         <div class="chinese-text" id="chinese-text">
-         你好！我叫大衛。
+         你好！我叫艾倫。
         </div>
         <div class="pinyin-text" id="pinyin-text">
-         Nǐ hǎo! Wǒ jiào Dàwèi.
+         Nǐ hǎo! Wǒ jiào Àilún.
         </div>
         <div class="english-text" id="english-text">
-         Hello! My name is David.
+         Hello! My name is Alan.
         </div>
        </div><button class="continue-btn" id="continue-btn" onclick="continueStory()">Continue <span id="arrow-icon"></span></button>
       </div>
@@ -2300,7 +2318,7 @@
       
       // Characters
       characters: {
-        david: '\uD83D\uDC68', // 👨
+        alan: '\uD83D\uDC68', // 👨
         phin: '\uD83D\uDC69'     // 👩
       },
       
@@ -2452,7 +2470,7 @@
       setIcon('lesson-icon-directions', 'lessons.directions');
       
       // Characters
-      updateDavidAvatar();
+      updateAlanAvatar();
       updateConversationAvatar();
       
       // World
@@ -2717,66 +2735,66 @@
       greetings: {
         title: 'Love at First Sight',
         subtitle: 'Learn greetings and introductions',
-        background: 'https://i.pinimg.com/736x/4a/01/90/4a0190274d2cc5ce8933037acf2f6ec3.jpg',
+        background: 'images/lesson-greetings-bg.jpg',
         dialogues: [
-          { speaker: 'David (大衛)', chinese: '嗨，你需要幫忙嗎？', pinyin: 'Hāi, nǐ xūyào bāngmáng ma?', english: 'Hi, do you need help?', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '嗨，你需要幫忙嗎？', pinyin: 'Hāi, nǐ xūyào bāngmáng ma?', english: 'Hi, do you need help?', character: 'alan', type: 'dialogue' },
           { speaker: 'Player', chinese: '', pinyin: '', english: '', character: 'phin', type: 'quiz', options: [
             { chinese: '嗨，我迷路了。', pinyin: 'Hāi, wǒ mílù le.', english: 'Hi, I\'m lost.' },
             { chinese: '呃…不好意思，我聽不太懂。', pinyin: 'È… bù hǎo yìsi, wǒ tīng bù tài dǒng.', english: 'Uh… sorry, I don\'t really understand.' }
           ], correct: 0 },
-          { speaker: 'David (大衛)', chinese: '沒關係。我叫大衛。你呢？', pinyin: 'Méi guānxi. Wǒ jiào Dàwèi. Nǐ ne?', english: 'No worries. My name is David. And you?', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '沒關係。我叫艾倫。你呢？', pinyin: 'Méi guānxi. Wǒ jiào Àilún. Nǐ ne?', english: 'No worries. My name is Alan. And you?', character: 'alan', type: 'dialogue' },
           { speaker: 'Player (Phin)', chinese: '我叫 Phin。', pinyin: 'Wǒ jiào Phin.', english: 'My name is Phin.', character: 'phin', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '你好，Phin。你從哪裡來？', pinyin: 'Nǐ hǎo, Phin. Nǐ cóng nǎlǐ lái?', english: 'Nice to meet you, Phin. Where are you from?', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '你好，Phin。你從哪裡來？', pinyin: 'Nǐ hǎo, Phin. Nǐ cóng nǎlǐ lái?', english: 'Nice to meet you, Phin. Where are you from?', character: 'alan', type: 'dialogue' },
           { speaker: 'Player (Phin)', chinese: '我來自緬甸。', pinyin: 'Wǒ láizì Miǎndiàn.', english: 'I\'m from Myanmar.', character: 'phin', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '喔，歡迎來台大。', pinyin: 'Ō, huānyíng lái Táidà.', english: 'Oh, welcome to NTU.', character: 'david', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '我帶你走走吧。', pinyin: 'Wǒ dài nǐ zǒu-zǒu ba.', english: 'Let me show you around.', character: 'david', type: 'dialogue' }
+          { speaker: 'Alan (艾倫)', chinese: '喔，歡迎來台大。', pinyin: 'Ō, huānyíng lái Táidà.', english: 'Oh, welcome to NTU.', character: 'alan', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '我帶你走走吧。', pinyin: 'Wǒ dài nǐ zǒu-zǒu ba.', english: 'Let me show you around.', character: 'alan', type: 'dialogue' }
         ]
       },
       numbers: {
         title: 'Night Market',
         subtitle: 'Exploring the night market together',
-        background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4FH6yzM0VWRjFmwgDdM2PF2Ub9QXv0-3z_w&s',
+        background: 'images/lesson-numbers-bg.jpg',
         dialogues: [
-          { speaker: 'David (大衛)', chinese: '這裡是夜市。', pinyin: 'Zhèlǐ shì yèshì.', english: 'This is the night market.', character: 'david', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '你喜歡喝珍珠奶茶嗎？', pinyin: 'Nǐ xǐhuān hē zhēnzhū nǎichá ma?', english: 'Do you like bubble tea?', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '這裡是夜市。', pinyin: 'Zhèlǐ shì yèshì.', english: 'This is the night market.', character: 'alan', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '你喜歡喝珍珠奶茶嗎？', pinyin: 'Nǐ xǐhuān hē zhēnzhū nǎichá ma?', english: 'Do you like bubble tea?', character: 'alan', type: 'dialogue' },
           { speaker: 'Player (Phin)', chinese: '嗯，喜歡。', pinyin: 'En, xǐhuān.', english: 'Yeah, I like it.', character: 'phin', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '那你一定要試試這家。', pinyin: 'Nà nǐ yídìng yào shìshi zhè jiā.', english: 'Then you have to try this place.', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '那你一定要試試這家。', pinyin: 'Nà nǐ yídìng yào shìshi zhè jiā.', english: 'Then you have to try this place.', character: 'alan', type: 'dialogue' },
           { speaker: '', chinese: '', pinyin: '', english: '', character: '', type: 'image', imageUrl: 'placeholder' },
-          { speaker: 'David (大衛)', chinese: '下次要不要再一起出來？', pinyin: 'Xià cì yào bù yào zài yìqǐ chūlái?', english: 'Do you want to go out again next time?', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '下次要不要再一起出來？', pinyin: 'Xià cì yào bù yào zài yìqǐ chūlái?', english: 'Do you want to go out again next time?', character: 'alan', type: 'dialogue' },
           { speaker: 'Player', chinese: '', pinyin: '', english: '', character: 'phin', type: 'choice', options: [
             { chinese: '好啊。', pinyin: 'Hǎo a.', english: 'Sure.' },
             { chinese: '不好意思，不行。', pinyin: 'Bù hǎo yìsi, bù xíng.', english: 'Sorry, no.' }
           ], responses: [
-            { speaker: 'David (大衛)', chinese: '太好了！', pinyin: 'Tài hǎo le!', english: 'Hooray!', character: 'david' },
-            { speaker: 'David (大衛)', chinese: '沒關係。', pinyin: 'Méi guānxi.', english: "That's okay.", character: 'david' }
+            { speaker: 'Alan (艾倫)', chinese: '太好了！', pinyin: 'Tài hǎo le!', english: 'Hooray!', character: 'alan' },
+            { speaker: 'Alan (艾倫)', chinese: '沒關係。', pinyin: 'Méi guānxi.', english: "That's okay.", character: 'alan' }
           ] }
         ]
       },
       food: {
         title: 'Happy Ending',
         subtitle: 'The moment of truth',
-        background: 'https://creator.nightcafe.studio/jobs/WyxKAB2ZhZ3Z4utO5IN5/WyxKAB2ZhZ3Z4utO5IN5--4--0rkj3.jpg',
+        background: 'images/lesson-food-bg.jpg',
         dialogues: [
-          { speaker: 'David (大衛)', chinese: 'Phin。', pinyin: 'Phin.', english: 'Phin.', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: 'Phin。', pinyin: 'Phin.', english: 'Phin.', character: 'alan', type: 'dialogue' },
           { speaker: 'Player (Phin)', chinese: '…?', pinyin: '…?', english: '…?', character: 'phin', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '我愛你。', pinyin: 'Wǒ ài nǐ.', english: 'I love you.', character: 'david', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '你願意跟我結婚嗎？', pinyin: 'Nǐ yuànyì gēn wǒ jiéhūn ma?', english: 'Will you marry me?', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '我愛你。', pinyin: 'Wǒ ài nǐ.', english: 'I love you.', character: 'alan', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '你願意跟我結婚嗎？', pinyin: 'Nǐ yuànyì gēn wǒ jiéhūn ma?', english: 'Will you marry me?', character: 'alan', type: 'dialogue' },
           { speaker: 'Player', chinese: '', pinyin: '', english: '', character: 'phin', type: 'quiz', options: [
             { chinese: '我願意。', pinyin: 'Wǒ yuànyì.', english: 'I do.' }
           ], correct: 0 },
-          { speaker: 'David (大衛)', chinese: '太好了！', pinyin: 'Tài hǎo le!', english: 'Hooray!', character: 'david', type: 'dialogue' },
-          { speaker: '', chinese: '', pinyin: '', english: '', character: '', type: 'image', imageUrl: 'https://www.theknot.com/tk-media/images/3bc9b8a6-46a6-42d8-8776-3df7c3bbb77c', emoji: '🎉' },
-          { speaker: '', chinese: '', pinyin: '', english: '', character: '', type: 'image', imageUrl: 'https://t3.ftcdn.net/jpg/03/27/47/64/360_F_327476437_wUTmsvTLezc2fNh3UmqrOYE7xyWp1fvo.jpg', emoji: '❤️', babies: true }
+          { speaker: 'Alan (艾倫)', chinese: '太好了！', pinyin: 'Tài hǎo le!', english: 'Hooray!', character: 'alan', type: 'dialogue' },
+          { speaker: '', chinese: '', pinyin: '', english: '', character: '', type: 'image', imageUrl: 'images/celebration.jpg', emoji: '🎉' },
+          { speaker: '', chinese: '', pinyin: '', english: '', character: '', type: 'image', imageUrl: 'images/family.jpg', emoji: '❤️', babies: true }
         ]
       },
       directions: {
         title: 'Awkward Encounter',
         subtitle: 'A brief, uncomfortable greeting',
-        background: 'https://as1.ftcdn.net/jpg/01/99/19/26/1000_F_199192630_JdSFvcNfBuVafGeJtimTh0mzSffr9ZGJ.jpg',
+        background: 'images/lesson-directions-bg.jpg',
         dialogues: [
-          { speaker: 'David (大衛)', chinese: '嗨。', pinyin: 'Hāi.', english: 'Hi.', character: 'david', type: 'dialogue' },
-          { speaker: 'Player (Phin)', chinese: '嗨，大衛。', pinyin: 'Hāi, Dàwèi.', english: 'Hi, David.', character: 'phin', type: 'dialogue' },
-          { speaker: 'David (大衛)', chinese: '拜拜。', pinyin: 'Bāibāi.', english: 'Bye.', character: 'david', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '嗨。', pinyin: 'Hāi.', english: 'Hi.', character: 'alan', type: 'dialogue' },
+          { speaker: 'Player (Phin)', chinese: '嗨，艾倫。', pinyin: 'Hāi, Àilún.', english: 'Hi, Alan.', character: 'phin', type: 'dialogue' },
+          { speaker: 'Alan (艾倫)', chinese: '拜拜。', pinyin: 'Bāibāi.', english: 'Bye.', character: 'alan', type: 'dialogue' },
           { speaker: 'Player (Phin)', chinese: '...拜拜。', pinyin: '...Bāibāi.', english: '...bye.', character: 'phin', type: 'dialogue' }
         ]
       }
@@ -3013,37 +3031,40 @@
           selectedAvatar.accessory === 'none' ? null : selectedAvatar.accessory
         );
         
-        // Create David character SVG
-        const davidCharacter = createMaleCharacter();
+        // Create Alan character SVG
+        const alanCharacter = createMaleCharacter();
         
+        // Add blur effect to lesson background
+        visualNovel.classList.add('background-blurred');
+
         // Create image moment with image and characters
         const imageMoment = document.createElement('div');
         imageMoment.className = 'image-moment';
         const imageUrl = dialogue.imageUrl && dialogue.imageUrl !== 'placeholder'
           ? dialogue.imageUrl
-          : 'https://imgcdn.stablediffusionweb.com/2024/11/19/962023e5-9415-4257-b7ae-34f92d95529f.jpg';
+          : 'images/bubble-tea.jpg';
 
         imageMoment.innerHTML = `
-          <div style="width: 600px; max-width: 90vw; height: 400px; background: url('${imageUrl}') center/cover no-repeat; border-radius: 24px; box-shadow: 0 16px 48px rgba(0,0,0,0.4); position: relative; overflow: visible; filter: blur(1.5px);">
+          <div style="width: 720px; max-width: 90vw; height: 480px; background: url('${imageUrl}') center/cover no-repeat; border-radius: 24px; box-shadow: 0 16px 48px rgba(0,0,0,0.4); position: relative; overflow: visible; filter: blur(1.5px); z-index: 1010;">
           </div>
-          <div style="position: absolute; bottom: 30%; left: 40%; transform: translateX(-50%); width: 180px; height: 280px; z-index: 10; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));">
-            ${davidCharacter}
+          <div style="position: absolute; bottom: 30%; left: 40%; transform: translateX(-50%); width: 216px; height: 336px; z-index: 1015; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));">
+            ${alanCharacter}
           </div>
-          <div style="position: absolute; bottom: 30%; right: 40%; transform: translateX(50%); width: 180px; height: 280px; z-index: 10; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));">
+          <div style="position: absolute; bottom: 30%; right: 40%; transform: translateX(50%); width: 216px; height: 336px; z-index: 1015; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));">
             ${playerCharacter}
           </div>
           ${dialogue.babies ? `
-          <div style="position: absolute; bottom: 30%; left: 25%; transform: translateX(-50%); font-size: 64px; z-index: 11; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));">
+          <div style="position: absolute; bottom: 30%; left: 25%; transform: translateX(-50%); font-size: 77px; z-index: 1016; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));">
             👶
           </div>
-          <div style="position: absolute; bottom: 30%; right: 25%; transform: translateX(50%); font-size: 64px; z-index: 11; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));">
+          <div style="position: absolute; bottom: 30%; right: 25%; transform: translateX(50%); font-size: 77px; z-index: 1016; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));">
             👶
           </div>
           ` : ''}
-          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); margin-top: -236px; font-size: 72px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); z-index: 15;">
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); margin-top: -283px; font-size: 86px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5)); z-index: 1020;">
             ${dialogue.emoji || '📸'}
           </div>
-          <button class="continue-btn" onclick="continueStory()">Continue ${getIcon('ui.arrow')}</button>
+          <button class="continue-btn" onclick="continueStory()" style="position: relative; z-index: 1030;">Continue ${getIcon('ui.arrow')}</button>
         `;
         visualNovel.appendChild(imageMoment);
         
@@ -3127,7 +3148,7 @@
         }
         
         document.getElementById('character-phin').classList.toggle('speaking', dialogue.character === 'phin');
-        document.getElementById('character-david').classList.toggle('speaking', dialogue.character === 'david');
+        document.getElementById('character-alan').classList.toggle('speaking', dialogue.character === 'alan');
       }
     }
     
@@ -3245,6 +3266,12 @@
     }
     
     function continueStory() {
+      // Remove blur effect from lesson background
+      const visualNovel = document.querySelector('.visual-novel-container');
+      if (visualNovel) {
+        visualNovel.classList.remove('background-blurred');
+      }
+
       const lesson = lessons[currentLesson];
       const currentDialogue = lesson.dialogues[dialogueStep];
       
@@ -3262,14 +3289,14 @@
         document.getElementById('continue-btn').classList.remove('hidden');
         
         document.getElementById('character-phin').classList.toggle('speaking', response.character === 'phin');
-        document.getElementById('character-david').classList.toggle('speaking', response.character === 'david');
+        document.getElementById('character-alan').classList.toggle('speaking', response.character === 'alan');
         
-        // Show emoji on David's avatar for lesson 1-2 choice responses
-        if (currentLesson === 'numbers' && response.character === 'david') {
-          const davidAvatar = document.getElementById('character-david');
+        // Show emoji on Alan's avatar for lesson 1-2 choice responses
+        if (currentLesson === 'numbers' && response.character === 'alan') {
+          const alanAvatar = document.getElementById('character-alan');
           
           // Remove any existing emoji
-          const existingEmoji = davidAvatar.querySelector('.character-emoji');
+          const existingEmoji = alanAvatar.querySelector('.character-emoji');
           if (existingEmoji) {
             existingEmoji.remove();
           }
@@ -3286,7 +3313,7 @@
             emojiElement.textContent = '💔';
           }
           
-          davidAvatar.appendChild(emojiElement);
+          alanAvatar.appendChild(emojiElement);
         }
         
         // Reset player choice and move forward
@@ -3753,11 +3780,11 @@
       updateConversationAvatar();
     }
     
-    function updateDavidAvatar() {
-      const davidAvatar = document.getElementById('char-david-avatar');
-      if (davidAvatar) {
-        const davidCharacter = createMaleCharacter();
-        davidAvatar.innerHTML = davidCharacter;
+    function updateAlanAvatar() {
+      const alanAvatar = document.getElementById('char-alan-avatar');
+      if (alanAvatar) {
+        const alanCharacter = createMaleCharacter();
+        alanAvatar.innerHTML = alanCharacter;
       }
     }
     
